@@ -31,6 +31,35 @@ Docker'а на ноутбуке нет? Тогда локально работа
 | `make seed` | перезалить учебные данные |
 | `make help` | список всех команд |
 
+## Как проверить, что сервис жив
+
+1. **Контейнеры подняты:**
+
+   ```bash
+   make ps
+   ```
+
+   Оба сервиса (`backend`, `db`) должны быть в состоянии `running` (у `db` — `healthy`).
+
+2. **Health-проверка API:**
+
+   ```bash
+   curl http://localhost:8080/health
+   ```
+
+   Если порт изменён через `APP_PORT`, подставьте его: `curl http://localhost:$APP_PORT/health`.
+
+3. **Если что-то не так — смотреть логи:**
+
+   ```bash
+   make logs
+   ```
+
+   (это `docker compose logs -f backend`; выйти — `Ctrl+C`)
+
+Быстрая проверка сразу после `make up`: форма отвечает на <http://localhost:8080/>,
+health — на <http://localhost:8080/health>.
+
 ## API
 
 | Метод | Путь | Зачем |
